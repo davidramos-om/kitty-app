@@ -1,0 +1,65 @@
+{
+    "name": "cat-swap",
+    "author": {
+      "email": "davidramos015@gmai.com",
+      "name": "David Ramos",
+      "url": "https://www.davidramos-om.com"
+    },
+    "version": "0.0.1",
+    "description": "Sundae, Shiba and Venus, swap's inspiration, a clone and mix of them.",
+    "private": true,
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.8.2",
+    "@emotion/styled": "^11.8.1",
+    "@iconify/react": "^3.1.4",
+    "@mui/material": "^5.5.0",
+    "@testing-library/jest-dom": "^5.16.2",
+    "@testing-library/react": "^12.1.4",
+    "@testing-library/user-event": "^13.5.0",
+    "@types/jest": "^27.4.1",
+    "@types/node": "^16.11.26",
+    "@types/react": "^17.0.40",
+    "@types/react-dom": "^17.0.13",
+    "date-fns": "^2.28.0",
+    "framer-motion": "^6.2.8",
+    "nprogress": "^0.2.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-helmet-async": "^1.2.3",
+    "react-lazy-load-image-component": "^1.5.1",
+    "react-router-dom": "^6.2.2",
+    "react-scripts": "5.0.0",
+    "simplebar-react": "^2.3.6",
+    "typescript": "^4.6.2",
+    "web-vitals": "^2.1.4"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@types/nprogress": "^0.2.0",
+    "@types/react-lazy-load-image-component": "^1.5.2",
+    "@types/styled-components": "^5.1.24"
+  }
+}
