@@ -28,4 +28,9 @@ export const defaultSettings: SettingsValueProps = {
   themeColorPresets: 'orange',
   themeLayout: 'horizontal',
   themeStretch: false,
+  language: 'en',
 };
+
+export const SITE_SETTINGS = {
+  ccm_api: String(process.env.REACT_APP_CCM_API || ''),
+}

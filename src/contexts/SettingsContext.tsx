@@ -15,6 +15,7 @@ const initialState: SettingsContextProps = {
   onToggleStretch: () => { },
   onChangeLayout: () => { },
   onResetSetting: () => { },
+  onChangeLanguage: (lang: string) => { },
   setColor: defaultPreset,
   colorOption: [],
 };
@@ -26,12 +27,14 @@ type SettingsProviderProps = {
 };
 
 function SettingsProvider({ children }: SettingsProviderProps) {
+
   const [ settings, setSettings ] = useLocalStorage('settings', {
     themeMode: initialState.themeMode,
     themeDirection: initialState.themeDirection,
     themeColorPresets: initialState.themeColorPresets,
     themeStretch: initialState.themeStretch,
     themeLayout: initialState.themeLayout,
+    language: initialState.language,
   });
 
   const onChangeMode = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -86,6 +89,13 @@ function SettingsProvider({ children }: SettingsProviderProps) {
     });
   };
 
+  const handleChangeLanguage = (lang: string) => {
+    setSettings({
+      ...settings,
+      language: lang
+    });
+  }
+
   return (
     <SettingsContext.Provider
       value={{
@@ -108,6 +118,7 @@ function SettingsProvider({ children }: SettingsProviderProps) {
         onChangeLayout,
         // Reset Setting
         onResetSetting,
+        onChangeLanguage: handleChangeLanguage,
       }}
     >
       {children}

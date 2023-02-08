@@ -1,6 +1,7 @@
 import Blockies from 'react-blockies';
 import { styled } from '@mui/material/styles';
 import { Box, Link, Typography } from '@mui/material';
+import LanguagePopover from "../header/LanguagePopover";
 
 const RootStyle = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -53,6 +54,7 @@ export default function NavbarAccount({ isCollapse }: Props) {
           <Typography variant="body2" noWrap sx={{ color: 'text.secondary' }}>
             Admin
           </Typography>
+          <LanguagePopover />
         </Box>
       </RootStyle>
     </Link>

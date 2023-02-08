@@ -11,19 +11,16 @@ import ThemeColorPresets from 'src/theme/ThemeColorPresets';
 export default function App() {
 
   return (
-    <div>
-      <p>Hello word</p>
-      <ThemeProvider>
-        <ThemeColorPresets>
-          <MotionLazyContainer>
-            <ProgressBarStyle />
-            <Settings />
-            <ScrollToTop />
-            <Router />
-          </MotionLazyContainer>
-        </ThemeColorPresets>
-      </ThemeProvider>
-    </div>
+    <ThemeProvider>
+      <ThemeColorPresets>
+        <MotionLazyContainer>
+          <ProgressBarStyle />
+          <Settings />
+          <ScrollToTop />
+          <Router />
+        </MotionLazyContainer>
+      </ThemeColorPresets>
+    </ThemeProvider>
   );
 }
 

@@ -20,7 +20,7 @@ export default function StatsPage() {
     <Page title="Coin Stats">
       <Stack alignContent={"center"} alignItems="center" >
         <Tabs value={value} onChange={handleChange} aria-label="icon label tabs example">
-          <Tab icon={<Iconify icon="arcticons:tickertape" width={24} height={24} />} label="Price Tickers" iconPosition="top" />
+          <Tab icon={<Iconify icon="arcticons:tickertape" width={24} height={24} />} label="Price Ticker" iconPosition="top" />
           <Tab icon={<Iconify icon="carbon:heat-map" width={24} height={24} />} label="Coin Heatmap" iconPosition="top" />
           <Tab icon={<Iconify icon="la:chart-line" width={24} height={24} />} label="Compare Chart" iconPosition="top" />
         </Tabs>

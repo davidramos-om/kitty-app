@@ -7,10 +7,10 @@ export default function PageSix() {
   const { themeStretch } = useSettings();
 
   return (
-    <Page title="Trade Page">
+    <Page title="Trading Page">
       <Container maxWidth={themeStretch ? false : 'xl'}>
         <Typography variant="h3" component="h1" paragraph>
-          Trade Page
+          Trading Page
         </Typography>
         <Typography gutterBottom>
           Curabitur turpis. Vestibulum facilisis, purus nec pulvinar iaculis, ligula mi congue nunc,

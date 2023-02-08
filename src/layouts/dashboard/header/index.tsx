@@ -1,5 +1,5 @@
 import { styled } from '@mui/material/styles';
-import { Box, Stack, AppBar, Toolbar } from '@mui/material';
+import { Box, AppBar, Toolbar } from '@mui/material';
 
 import useOffSetTop from 'src/hooks/useOffSetTop';
 import useResponsive from 'src/hooks/useResponsive';
@@ -9,7 +9,6 @@ import { HEADER, NAVBAR } from 'src/config';
 import Logo from 'src/components/Logo';
 import Iconify from 'src/components/Iconify';
 import IconButtonAnimate from 'src/components/IconButtonAnimate';
-import LanguagePopover from './LanguagePopover';
 import CryptoMarquee from "src/components/CryptoMarqee";
 
 type RootStyleProps = {
@@ -78,13 +77,8 @@ export default function DashboardHeader({
             <Iconify icon="eva:menu-2-fill" />
           </IconButtonAnimate>
         )}
-
-        <CryptoMarquee />
         <Box sx={{ flexGrow: 1 }} />
-
-        <Stack direction="row" alignItems="center" spacing={{ xs: 0.5, sm: 1.5 }}>
-          <LanguagePopover />
-        </Stack>
+        <CryptoMarquee />
       </Toolbar>
     </RootStyle>
   );

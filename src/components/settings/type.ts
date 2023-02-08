@@ -20,6 +20,7 @@ export type SettingsValueProps = {
   themeColorPresets: ThemeColorPresets;
   themeStretch: ThemeStretch;
   themeLayout: ThemeLayout;
+  language: string;
 };
 
 export type SettingsContextProps = {
@@ -28,6 +29,7 @@ export type SettingsContextProps = {
   themeColorPresets: ThemeColorPresets;
   themeLayout: ThemeLayout;
   themeStretch: boolean;
+  language: string;
   setColor: ColorVariants;
   colorOption: {
     name: string;
@@ -40,4 +42,5 @@ export type SettingsContextProps = {
   onChangeDirection: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onChangeColor: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onChangeLayout: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onChangeLanguage: (newLanguage: string) => void;
 };

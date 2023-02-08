@@ -1,35 +1,9 @@
-import { useState, useEffect, useCallback, } from 'react';
-import { Box, Card, Typography, Skeleton } from '@mui/material';
+import { Box, Card, Typography } from '@mui/material';
+import useSettings from "src/hooks/useSettings";
 
 export default function MarketCapWidget({ coinId, title }) {
 
-    const [ loaded, setLoaded ] = useState(false);
-
-    const isLoaded = useCallback(() => {
-
-        const elId = `ccm-${coinId}`;
-        const widget = document.getElementById(elId);
-        if (widget)
-            return (widget.getAttribute('data-currencyid') || '0') === String(coinId);
-
-        return false;
-    }, [ coinId ]);
-
-    const checkLoaded = useCallback(() => {
-
-        if (isLoaded()) {
-            setLoaded(true);
-        }
-
-    }, [ isLoaded ]);
-
-    useEffect(() => {
-
-        const interval = setInterval(checkLoaded, 1000);
-        return () => clearInterval(interval);
-
-    }, [ checkLoaded ]);
-
+    const { language } = useSettings();
 
     return (
         <Card
@@ -42,7 +16,7 @@ export default function MarketCapWidget({ coinId, title }) {
                     coin-id={coinId}
                     currency="usd"
                     height="300"
-                    locale="en"
+                    locale={language}
                 />
             </Box>
         </Card>
