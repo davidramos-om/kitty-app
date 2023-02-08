@@ -10,7 +10,6 @@ type Props = {
 export default function ThemeColorPresets({ children }: Props) {
   const defaultTheme = useTheme();
   const { setColor } = useSettings();
-  console.info("setColor", setColor);
 
   const themeOptions = useMemo(
     () => ({
