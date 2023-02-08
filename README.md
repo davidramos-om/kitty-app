@@ -3,6 +3,8 @@
 2. [Pancake Swap](https://pancakeswap.finance/swap)
 3. [Venus Protocol](https://app.venus.io/dashboard)
 
+# Under development
+
 ## Purpose
 Have fun and practice using web3 libraries, connect to wallet and blockchains, use trading charts
 
