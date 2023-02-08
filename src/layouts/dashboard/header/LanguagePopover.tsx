@@ -10,17 +10,17 @@ const LANGS = [
   {
     label: 'English',
     value: 'en',
-    icon: 'images/ic_flag_en.svg',
+    icon: '/images/ic_flag_en.svg',
   },
   {
     label: 'German',
     value: 'de',
-    icon: 'images/ic_flag_de.svg',
+    icon: '/images/ic_flag_de.svg',
   },
   {
     label: 'French',
     value: 'fr',
-    icon: 'images/ic_flag_fr.svg',
+    icon: '/images/ic_flag_fr.svg',
   },
 ];
 

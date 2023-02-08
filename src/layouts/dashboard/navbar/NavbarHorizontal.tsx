@@ -4,7 +4,7 @@ import { Container } from '@mui/material';
 import { HEADER } from 'src/config';
 
 import { NavSectionHorizontal } from 'src/layouts/nav-section';
-import navConfig from './NavConfig';
+import navConfig from '../../../routes/MenuConfig';
 
 const RootStyle = styled('div')(({ theme }) => ({
   transition: theme.transitions.create('top', {

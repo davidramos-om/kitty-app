@@ -1,18 +1,16 @@
 import { styled } from '@mui/material/styles';
 import { Box, Stack, AppBar, Toolbar } from '@mui/material';
+
 import useOffSetTop from 'src/hooks/useOffSetTop';
 import useResponsive from 'src/hooks/useResponsive';
-
 import cssStyles from 'src/utils/cssStyles';
 import { HEADER, NAVBAR } from 'src/config';
 
 import Logo from 'src/components/Logo';
 import Iconify from 'src/components/Iconify';
 import IconButtonAnimate from 'src/components/IconButtonAnimate';
-
-import Searchbar from './Searchbar';
-import AccountPopover from './AccountPopover';
 import LanguagePopover from './LanguagePopover';
+import CryptoMarquee from "src/components/CryptoMarqee";
 
 type RootStyleProps = {
   isCollapse: boolean;
@@ -61,8 +59,8 @@ export default function DashboardHeader({
   isCollapse = false,
   verticalLayout = false,
 }: Props) {
-  const isOffset = useOffSetTop(HEADER.DASHBOARD_DESKTOP_HEIGHT) && !verticalLayout;
 
+  const isOffset = useOffSetTop(HEADER.DASHBOARD_DESKTOP_HEIGHT) && !verticalLayout;
   const isDesktop = useResponsive('up', 'lg');
 
   return (
@@ -81,12 +79,11 @@ export default function DashboardHeader({
           </IconButtonAnimate>
         )}
 
-        <Searchbar />
+        <CryptoMarquee />
         <Box sx={{ flexGrow: 1 }} />
 
         <Stack direction="row" alignItems="center" spacing={{ xs: 0.5, sm: 1.5 }}>
           <LanguagePopover />
-          <AccountPopover />
         </Stack>
       </Toolbar>
     </RootStyle>

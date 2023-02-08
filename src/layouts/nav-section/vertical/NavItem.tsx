@@ -42,8 +42,6 @@ export function NavItemRoot({ item, isCollapse, open = false, active, onOpen }: 
   );
 }
 
-// ----------------------------------------------------------------------
-
 type NavItemSubProps = Omit<NavItemProps, 'isCollapse'>;
 
 export function NavItemSub({ item, open = false, active = false, onOpen }: NavItemSubProps) {
@@ -77,8 +75,6 @@ export function NavItemSub({ item, open = false, active = false, onOpen }: NavIt
   );
 }
 
-// ----------------------------------------------------------------------
-
 type DotIconProps = {
   active: boolean;
 };
@@ -106,8 +102,6 @@ export function DotIcon({ active }: DotIconProps) {
     </ListItemIconStyle>
   );
 }
-
-// ----------------------------------------------------------------------
 
 type ArrowIconProps = {
   open: boolean;

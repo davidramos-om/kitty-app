@@ -47,8 +47,6 @@ export function NavListRoot({ list, isCollapse }: NavListRootProps) {
   return <NavItemRoot item={list} active={active} isCollapse={isCollapse} />;
 }
 
-// ----------------------------------------------------------------------
-
 type NavListSubProps = {
   list: NavListProps;
 };

@@ -3,10 +3,10 @@ import { Outlet } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
 import { Box } from '@mui/material';
 
-import useSettings from '../../hooks/useSettings';
-import useResponsive from '../../hooks/useResponsive';
-import useCollapseDrawer from '../../hooks/useCollapseDrawer';
-import { HEADER, NAVBAR } from '../../config';
+import useSettings from 'src/hooks/useSettings';
+import useResponsive from 'src/hooks/useResponsive';
+import useCollapseDrawer from 'src/hooks/useCollapseDrawer';
+import { HEADER, NAVBAR } from 'src/config';
 import DashboardHeader from './header';
 import NavbarVertical from './navbar/NavbarVertical';
 import NavbarHorizontal from './navbar/NavbarHorizontal';
@@ -15,12 +15,11 @@ type MainStyleProps = {
   collapseClick: boolean;
 };
 
-const MainStyle = styled('main', {
-  shouldForwardProp: (prop) => prop !== 'collapseClick',
-})<MainStyleProps>(({ collapseClick, theme }) => ({
+const MainStyle = styled('main', { shouldForwardProp: (prop) => prop !== 'collapseClick' })<MainStyleProps>(({ collapseClick, theme }) => ({
   flexGrow: 1,
   paddingTop: HEADER.MOBILE_HEIGHT + 24,
   paddingBottom: HEADER.MOBILE_HEIGHT + 24,
+  backgroundColor: theme.palette.background.default,
   [ theme.breakpoints.up('lg') ]: {
     paddingLeft: 16,
     paddingRight: 16,
@@ -90,7 +89,10 @@ export default function DashboardLayout() {
 
       <NavbarVertical isOpenSidebar={open} onCloseSidebar={() => setOpen(false)} />
 
-      <MainStyle collapseClick={collapseClick}>
+      <MainStyle
+        id="main"
+        collapseClick={collapseClick}
+      >
         <Outlet />
       </MainStyle>
     </Box>

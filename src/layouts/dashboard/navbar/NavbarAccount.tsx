@@ -1,5 +1,6 @@
+import Blockies from 'react-blockies';
 import { styled } from '@mui/material/styles';
-import { Box, Link, Typography, Avatar } from '@mui/material';
+import { Box, Link, Typography } from '@mui/material';
 
 const RootStyle = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -26,9 +27,11 @@ export default function NavbarAccount({ isCollapse }: Props) {
           }),
         }}
       >
-        <Avatar
-          src="https://minimal-assets-api.vercel.app/assets/images/avatars/avatar_5.jpg"
-          alt="David Ramos"
+        <Blockies
+          seed={'CryptoBillionaire'.toLowerCase()}
+          scale={5}
+          size={8}
+          className="rounded-full"
         />
 
         <Box
@@ -45,10 +48,10 @@ export default function NavbarAccount({ isCollapse }: Props) {
           }}
         >
           <Typography variant="subtitle2" noWrap>
-            David Ramos
+            Crypto Billionaire
           </Typography>
           <Typography variant="body2" noWrap sx={{ color: 'text.secondary' }}>
-            user
+            Admin
           </Typography>
         </Box>
       </RootStyle>

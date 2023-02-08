@@ -13,7 +13,7 @@ import Logo from 'src/components/Logo';
 import Scrollbar from 'src/components/Scrollbar';
 import { NavSectionVertical } from 'src/layouts/nav-section';
 
-import navConfig from './NavConfig';
+import navConfig from 'src/routes/MenuConfig';
 import NavbarAccount from './NavbarAccount';
 import CollapseButton from './CollapseButton';
 
