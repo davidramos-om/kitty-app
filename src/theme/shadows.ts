@@ -1,10 +1,6 @@
-// @mui
 import { alpha } from '@mui/material/styles';
 import { Shadows } from '@mui/material/styles/shadows';
-//
 import palette from './palette';
-
-// ----------------------------------------------------------------------
 
 interface CustomShadowOptions {
   z1: string;
