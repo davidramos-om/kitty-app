@@ -6,7 +6,7 @@
         "url": "https://www.davidramos-om.com"
     },
     "version": "0.0.1",
-    "homepage": ".",
+    "homepage": "https://davidramos-om.github.io/kitty-app/",
     "description": "Sundae, Shiba and Venus, swap's inspiration, a clone and mix of them.",
     "private": true,
     "scripts": {
