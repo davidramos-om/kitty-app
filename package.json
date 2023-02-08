@@ -13,7 +13,7 @@
         "dev": "react-scripts start",
         "build": "react-scripts build",
         "predeploy": "rm -rf build && rm -rf node_modules/.cache/gh-pages && npm run build",
-        "deploy": "predeploy && gh-pages -d build"
+        "deploy": "npm run predeploy && gh-pages -d build"
     },
     "dependencies": {
         "@apollo/client": "^3.5.10",
@@ -34,6 +34,7 @@
         "date-fns": "^2.28.0",
         "framer-motion": "^6.2.8",
         "graphql": "^16.3.0",
+        "lodash": "^4.17.21",
         "nprogress": "^0.2.0",
         "numeral": "^2.0.6",
         "react": "^17.0.2",
@@ -69,6 +70,7 @@
         ]
     },
     "devDependencies": {
+        "@types/lodash": "^4.14.191",
         "@types/nprogress": "^0.2.0",
         "@types/numeral": "^2.0.2",
         "@types/react-lazy-load-image-component": "^1.5.2",
