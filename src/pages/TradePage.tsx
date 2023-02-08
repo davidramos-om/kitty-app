@@ -2,14 +2,15 @@ import { Container, Typography } from '@mui/material';
 import useSettings from '../hooks/useSettings';
 import Page from 'src/components/Page';
 
-export default function PageTwo() {
+
+export default function PageSix() {
   const { themeStretch } = useSettings();
 
   return (
-    <Page title="Page Two">
+    <Page title="Trade Page">
       <Container maxWidth={themeStretch ? false : 'xl'}>
         <Typography variant="h3" component="h1" paragraph>
-          Page Two
+          Trade Page
         </Typography>
         <Typography gutterBottom>
           Curabitur turpis. Vestibulum facilisis, purus nec pulvinar iaculis, ligula mi congue nunc,
