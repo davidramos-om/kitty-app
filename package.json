@@ -13,7 +13,7 @@
         "dev": "react-scripts start",
         "build": "react-scripts build",
         "predeploy": "rm -rf build && rm -rf node_modules/.cache/gh-pages && npm run build",
-        "deploy": "gh-pages -d build"
+        "deploy": "predeploy && gh-pages -d build"
     },
     "dependencies": {
         "@apollo/client": "^3.5.10",

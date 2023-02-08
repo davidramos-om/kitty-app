@@ -9,7 +9,6 @@ import MotionLazyContainer from 'src/components/animation/MotionLazyContainer';
 import ThemeColorPresets from 'src/theme/ThemeColorPresets';
 
 export default function App() {
-
   return (
     <ThemeProvider>
       <ThemeColorPresets>

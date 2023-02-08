@@ -17,7 +17,7 @@ export default function StatsPage() {
   };
 
   return (
-    <Page title="Coin Stats">
+    <Page title="Crypto Stats">
       <Stack alignContent={"center"} alignItems="center" >
         <Tabs value={value} onChange={handleChange} aria-label="icon label tabs example">
           <Tab icon={<Iconify icon="arcticons:tickertape" width={24} height={24} />} label="Price Ticker" iconPosition="top" />
