@@ -16,3 +16,30 @@ Have fun and practice using web3 libraries, connect to wallet and blockchains, u
 5. [NestJS Backend](https://nestjs.com/)
 6. [Material UI](https://mui.com/)
 7. [Framer Motion](https://www.framer.com/motion/)
+
+
+## Installation
+
+```bash
+$ npm install
+```
+
+## Publishing
+
+package.json
+
+```json
+"homepage": ".",
+{
+  "scripts": {
+    "predeploy": "rm -rf build && rm -rf node_modules/.cache/gh-pages && npm run build",
+        "deploy": "gh-pages -d build"
+  }
+}
+```
+
+```bash
+npm install -g gh-pages --save-dev
+npm run build
+npm run deploy
+```
