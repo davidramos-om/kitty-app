@@ -11,11 +11,16 @@ interface Props extends BoxProps {
 const Page = forwardRef<HTMLDivElement, Props>(({ children, title = '', meta, ...other }, ref) => (
   <>
     <Helmet>
-      <title>{`${title} | Minimal-UI`}</title>
+      <title>{`${title} | Kitty App`}</title>
       {meta}
     </Helmet>
 
-    <Box ref={ref} {...other}>
+    <Box
+      ref={ref}
+      paddingLeft={6}
+      paddingRight={6}
+      {...other}
+    >
       {children}
     </Box>
   </>
