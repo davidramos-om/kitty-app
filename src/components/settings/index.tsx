@@ -13,11 +13,8 @@ import Iconify from '../Iconify';
 import Scrollbar from '../Scrollbar';
 import ToggleButton from './ToggleButton';
 import SettingMode from './SettingMode';
-import SettingLayout from './SettingLayout';
-import SettingStretch from './SettingStretch';
-import SettingDirection from './SettingDirection';
 import SettingFullscreen from './SettingFullscreen';
-import SettingColorPresets from './SettingColorPresets';
+import LanguagePopover from "src/layouts/dashboard/header/LanguagePopover";
 
 const RootStyle = styled(m.div)(({ theme }) => ({
   ...cssStyles(theme).bgBlur({ color: theme.palette.background.paper, opacity: 0.92 }),
@@ -125,28 +122,11 @@ export default function Settings() {
                     <Typography variant="subtitle2">Mode</Typography>
                     <SettingMode />
                   </Stack>
-
                   <Stack spacing={1.5}>
-                    <Typography variant="subtitle2">Direction</Typography>
-                    <SettingDirection />
+                    <Typography variant="subtitle2">Language</Typography>
+                    <LanguagePopover />
                   </Stack>
-
-                  <Stack spacing={1.5}>
-                    <Typography variant="subtitle2">Layout</Typography>
-                    <SettingLayout />
-                  </Stack>
-
-                  <Stack spacing={1.5}>
-                    <Typography variant="subtitle2">Presets</Typography>
-                    <SettingColorPresets />
-                  </Stack>
-
-                  <Stack spacing={1.5}>
-                    <Typography variant="subtitle2">Stretch</Typography>
-                    <SettingStretch />
-                  </Stack>
-
-                  <SettingFullscreen />
+                  <SettingFullscreen />                  
                 </Stack>
               </Scrollbar>
             </RootStyle>
