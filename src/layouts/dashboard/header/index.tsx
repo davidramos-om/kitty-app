@@ -1,85 +1,150 @@
-import { styled } from '@mui/material/styles';
-import { Box, AppBar, Toolbar } from '@mui/material';
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+import { useState } from "react";
+import { useTheme } from '@mui/material/styles';
+import { Stack, AppBar, Toolbar, IconButton, Box, Typography } from '@mui/material';
+import Blockies from 'react-blockies';
 
+import { bgBlur } from 'src/utils/cssStyles';
 import useOffSetTop from 'src/hooks/useOffSetTop';
 import useResponsive from 'src/hooks/useResponsive';
-import cssStyles from 'src/utils/cssStyles';
-import { HEADER, NAVBAR } from 'src/config';
 
-import Logo from 'src/components/Logo';
-import Iconify from 'src/components/Iconify';
-import IconButtonAnimate from 'src/components/IconButtonAnimate';
-import CryptoMarquee from "src/components/CryptoMarqee";
+import { HEADER, NAV } from 'src/config-global';
+import Logo from 'src/components/logo';
+import Iconify from 'src/components/iconify';
+import { useSettingsContext } from 'src/contexts/SettingsContext';
+import SvgColor from 'src/components/svg-color';
 
-type RootStyleProps = {
-  isCollapse: boolean;
-  isOffset: boolean;
-  verticalLayout: boolean;
-};
-
-const RootStyle = styled(AppBar, {
-  shouldForwardProp: (prop) =>
-    prop !== 'isCollapse' && prop !== 'isOffset' && prop !== 'verticalLayout',
-})<RootStyleProps>(({ isCollapse, isOffset, verticalLayout, theme }) => ({
-  ...cssStyles(theme).bgBlur(),
-  boxShadow: 'none',
-  height: HEADER.MOBILE_HEIGHT,
-  zIndex: theme.zIndex.appBar + 1,
-  transition: theme.transitions.create([ 'width', 'height' ], {
-    duration: theme.transitions.duration.shorter,
-  }),
-  [ theme.breakpoints.up('lg') ]: {
-    height: HEADER.DASHBOARD_DESKTOP_HEIGHT,
-    width: `calc(100% - ${NAVBAR.DASHBOARD_WIDTH + 1}px)`,
-    ...(isCollapse && {
-      width: `calc(100% - ${NAVBAR.DASHBOARD_COLLAPSE_WIDTH}px)`,
-    }),
-    ...(isOffset && {
-      height: HEADER.DASHBOARD_DESKTOP_OFFSET_HEIGHT,
-    }),
-    ...(verticalLayout && {
-      width: '100%',
-      height: HEADER.DASHBOARD_DESKTOP_OFFSET_HEIGHT,
-      backgroundColor: theme.palette.background.default,
-    }),
-  },
-}));
-
-// ----------------------------------------------------------------------
+import LanguagePopover from './LanguagePopover';
 
 type Props = {
-  onOpenSidebar: VoidFunction;
-  isCollapse?: boolean;
-  verticalLayout?: boolean;
+    onOpenNav?: VoidFunction;
 };
 
-export default function DashboardHeader({
-  onOpenSidebar,
-  isCollapse = false,
-  verticalLayout = false,
-}: Props) {
+export default function Header({ onOpenNav }: Props) {
+    const theme = useTheme();
 
-  const isOffset = useOffSetTop(HEADER.DASHBOARD_DESKTOP_HEIGHT) && !verticalLayout;
-  const isDesktop = useResponsive('up', 'lg');
+    const { themeLayout, themeMode, onToggleMode } = useSettingsContext();
+    const isNavHorizontal = themeLayout === 'horizontal';
+    const isNavMini = themeLayout === 'mini';
+    const isDesktop = useResponsive('up', 'lg');
+    const isOffset = useOffSetTop(HEADER.H_DASHBOARD_DESKTOP) && !isNavHorizontal;
 
-  return (
-    <RootStyle isCollapse={isCollapse} isOffset={isOffset} verticalLayout={verticalLayout}>
-      <Toolbar
-        sx={{
-          minHeight: '100% !important',
-          px: { lg: 5 },
-        }}
-      >
-        {isDesktop && verticalLayout && <Logo sx={{ mr: 2.5 }} />}
+    const [ fullscreen, setFullscreen ] = useState(false);
 
-        {!isDesktop && (
-          <IconButtonAnimate onClick={onOpenSidebar} sx={{ mr: 1, color: 'text.primary' }}>
-            <Iconify icon="eva:menu-2-fill" />
-          </IconButtonAnimate>
-        )}
-        <Box sx={{ flexGrow: 1 }} />
-        <CryptoMarquee />
-      </Toolbar>
-    </RootStyle>
-  );
+    const onToggleFullScreen = () => {
+        if (!document.fullscreenElement) {
+            document.documentElement.requestFullscreen();
+            setFullscreen(true);
+        } else if (document.exitFullscreen) {
+            document.exitFullscreen();
+            setFullscreen(false);
+        }
+    };
+
+    const renderContent = (
+        <>
+            {isDesktop && isNavHorizontal && <Logo sx={{ mr: 2.5 }} />}
+
+            {!isDesktop && (
+                <IconButton onClick={onOpenNav} sx={{ mr: 1, color: 'text.primary' }}>
+                    <Iconify icon="eva:menu-2-fill" />
+                </IconButton>
+            )}
+
+            <Stack
+                flexGrow={1}
+                direction="row"
+                alignItems="center"
+                justifyContent={{ sm: 'space-around', md: 'flex-end' }}
+                spacing={{ xs: 0.5, sm: 1.5 }}
+            >
+
+                <LanguagePopover />
+                <Stack direction="row">
+                    <IconButton
+                        onClick={onToggleMode}
+                        style={{
+                            cursor: 'pointer',
+                            color: themeMode === 'light' ? theme.palette.primary.main : theme.palette.warning.main,
+                        }}
+                    >
+                        <SvgColor src={`/assets/icons/setting/${themeMode === 'light' ? 'ic_sun' : 'ic_moon'}.svg`} />
+                    </IconButton>
+                </Stack>
+                <Stack direction="row">
+                    <IconButton
+                        style={{
+                            cursor: 'pointer',
+                            color: theme.palette.text.secondary
+                        }}
+                        onClick={onToggleFullScreen}
+                    >
+
+                        <SvgColor
+                            src={`/assets/icons/setting/${fullscreen ? 'ic_exit_full_screen' : 'ic_full_screen'}.svg`}
+                        />
+                    </IconButton>
+                </Stack>
+                <Box sx={{ flexGrow: 1 }} />
+                <Stack direction="row">
+                    <Box paddingRight={2} sx={{ ml: 2, minWidth: 0, }}>
+                        <Typography variant="subtitle2" noWrap align="right" sx={{ color: 'text.primary' }}>
+                            Crypto Billionaire
+                        </Typography>
+                        <Typography variant="body2" noWrap align="right" sx={{ color: 'text.secondary' }} >
+                            Admin
+                        </Typography>
+                    </Box>
+                    <Blockies
+                        seed={'CryptoBillionaire'.toLowerCase()}
+                        scale={5}
+                        size={8}
+                        className="rounded-full"
+                    />
+                </Stack>
+            </Stack>
+        </>
+    );
+
+    return (
+        <AppBar
+            sx={{
+                boxShadow: 'none',
+                height: HEADER.H_MOBILE,
+                zIndex: theme.zIndex.appBar + 1,
+                ...bgBlur({
+                    color: theme.palette.background.default,
+                }),
+                transition: theme.transitions.create([ 'height' ], {
+                    duration: theme.transitions.duration.shorter,
+                }),
+                ...(isDesktop && {
+                    width: `calc(100% - ${NAV.W_DASHBOARD + 1}px)`,
+                    height: HEADER.H_DASHBOARD_DESKTOP,
+                    ...(isOffset && {
+                        height: HEADER.H_DASHBOARD_DESKTOP_OFFSET,
+                    }),
+                    ...(isNavHorizontal && {
+                        width: 1,
+                        bgcolor: 'background.default',
+                        height: HEADER.H_DASHBOARD_DESKTOP_OFFSET,
+                        borderBottom: `dashed 1px ${theme.palette.divider}`,
+                    }),
+                    ...(isNavMini && {
+                        width: `calc(100% - ${NAV.W_DASHBOARD_MINI + 1}px)`,
+                    }),
+                }),
+            }}
+        >
+            <Toolbar
+                sx={{
+                    height: 1,
+                    px: { lg: 5 },
+                    py: HEADER.H_TOPBAR,
+                }}
+            >
+                {renderContent}
+            </Toolbar>
+        </AppBar>
+    );
 }
