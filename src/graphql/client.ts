@@ -1,13 +1,24 @@
 
-import { ApolloClient, InMemoryCache, createHttpLink } from "@apollo/client";
+import { ApolloClient, InMemoryCache, createHttpLink, from } from "@apollo/client";
+import { onError } from "@apollo/client/link/error";
 import { SITE_SETTINGS } from "src/config-global";
 
 const httpLink = createHttpLink({
-    uri: SITE_SETTINGS.ccm_api,
+    uri: SITE_SETTINGS.ccm_api
+});
+
+const errorLink = onError(({ graphQLErrors, networkError }) => {
+    if (graphQLErrors)
+        graphQLErrors.forEach(({ message, locations, path }) =>
+            console.log(
+                `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
+            )
+        );
+    if (networkError) console.log(`[Network error]: ${networkError}`);
 });
 
 const client = new ApolloClient({
-    link: httpLink,
+    link: from([ errorLink, httpLink ]),
     cache: new InMemoryCache({})
 });
 

@@ -12,7 +12,8 @@ export async function getStaticProps() {
 
     const { data, loading } = await client.query({
         query: GET_STATS,
-        variables: {}
+        errorPolicy: 'none',
+        variables: {},        
     });
 
     return {
