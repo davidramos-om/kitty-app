@@ -21,7 +21,7 @@ const Page = forwardRef<HTMLDivElement, Props>(({ children, title = '', meta, co
   return (
     <>
       <Head>
-        <title>{`${title} | Kitty App v.23.02.08.0250`}</title>
+        <title>{`${title} | Kitty App v.23.02.11.0245`}</title>
         {meta}
       </Head>
 
