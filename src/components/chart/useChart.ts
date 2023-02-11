@@ -1,10 +1,12 @@
+import merge from 'lodash/merge';
 import { ApexOptions } from 'apexcharts';
-import { useTheme } from '@mui/material/styles';
+import { useTheme, alpha } from '@mui/material/styles';
 
 
-export default function BaseOptionChart(): ApexOptions {
+export default function useChart(options?: ApexOptions) {
+  
   const theme = useTheme();
-
+  
   const LABEL_TOTAL = {
     show: true,
     label: 'Total',
@@ -22,15 +24,18 @@ export default function BaseOptionChart(): ApexOptions {
     lineHeight: theme.typography.h3.lineHeight,
   };
 
-  return {
+  const baseOptions = {
     // Colors
     colors: [
       theme.palette.primary.main,
-      theme.palette.chart.yellow[ 0 ],
-      theme.palette.chart.blue[ 0 ],
-      theme.palette.chart.violet[ 0 ],
-      theme.palette.chart.green[ 0 ],
-      theme.palette.chart.red[ 0 ],
+      theme.palette.warning.main,
+      theme.palette.info.main,
+      theme.palette.error.main,
+      theme.palette.success.main,
+      theme.palette.warning.dark,
+      theme.palette.success.darker,
+      theme.palette.info.dark,
+      theme.palette.info.darker,
     ],
 
     // Chart
@@ -66,7 +71,7 @@ export default function BaseOptionChart(): ApexOptions {
         shadeIntensity: 0,
         opacityFrom: 0.4,
         opacityTo: 0,
-        stops: [ 0, 100 ],
+        stops: [0, 100],
       },
     },
 
@@ -125,9 +130,12 @@ export default function BaseOptionChart(): ApexOptions {
     plotOptions: {
       // Bar
       bar: {
-        columnWidth: '28%',
         borderRadius: 4,
+        columnWidth: '28%',
+        borderRadiusApplication: 'end',
+        borderRadiusWhenStacked: 'last',
       },
+
       // Pie + Donut
       pie: {
         donut: {
@@ -138,25 +146,28 @@ export default function BaseOptionChart(): ApexOptions {
           },
         },
       },
+
       // Radialbar
       radialBar: {
         track: {
           strokeWidth: '100%',
-          background: theme.palette.grey[ 500_16 ],
+          background: alpha(theme.palette.grey[500], 0.16),
         },
         dataLabels: {
           value: LABEL_VALUE,
           total: LABEL_TOTAL,
         },
       },
+
       // Radar
       radar: {
         polygons: {
-          fill: { colors: [ 'transparent' ] },
+          fill: { colors: ['transparent'] },
           strokeColors: theme.palette.divider,
           connectorColors: theme.palette.divider,
         },
       },
+
       // polarArea
       polarArea: {
         rings: {
@@ -186,4 +197,6 @@ export default function BaseOptionChart(): ApexOptions {
       },
     ],
   };
+
+  return merge(baseOptions, options);
 }

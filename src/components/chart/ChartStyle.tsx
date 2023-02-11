@@ -1,19 +1,18 @@
 import { alpha, useTheme } from '@mui/material/styles';
 import { GlobalStyles } from '@mui/material';
 
-import cssStyles from 'src/utils/cssStyles';
+import { bgBlur } from 'src/utils/cssStyles';
 
-export default function ChartStyle() {
-
+export default function StyledChart() {
   const theme = useTheme();
 
-  return (
+  const inputGlobalStyles = (
     <GlobalStyles
       styles={{
-        '&.apexcharts-canvas': {
+        '.apexcharts-canvas': {
           // Tooltip
           '.apexcharts-xaxistooltip': {
-            ...cssStyles(theme).bgBlur(),
+            ...bgBlur({ color: theme.palette.background.default }),
             border: 0,
             color: theme.palette.text.primary,
             boxShadow: theme.customShadows.dropdown,
@@ -22,18 +21,19 @@ export default function ChartStyle() {
             '&:after': { borderBottomColor: alpha(theme.palette.background.default, 0.8) },
           },
           '.apexcharts-tooltip.apexcharts-theme-light': {
-            ...cssStyles(theme).bgBlur(),
+            ...bgBlur({ color: theme.palette.background.default }),
             border: 0,
             boxShadow: theme.customShadows.dropdown,
             borderRadius: Number(theme.shape.borderRadius) * 1.5,
-            '& .apexcharts-tooltip-title': {
+            '.apexcharts-tooltip-title': {
               border: 0,
               textAlign: 'center',
               fontWeight: theme.typography.fontWeightBold,
-              backgroundColor: theme.palette.grey[ 500_16 ],
-              color: theme.palette.text[ theme.palette.mode === 'light' ? 'secondary' : 'primary' ],
+              backgroundColor: alpha(theme.palette.grey[500], 0.16),
+              color: theme.palette.text[theme.palette.mode === 'light' ? 'secondary' : 'primary'],
             },
           },
+
           // Legend
           '.apexcharts-legend': {
             padding: 0,
@@ -53,4 +53,6 @@ export default function ChartStyle() {
       }}
     />
   );
+
+  return inputGlobalStyles;
 }
