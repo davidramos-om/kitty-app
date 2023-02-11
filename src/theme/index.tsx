@@ -1,44 +1,44 @@
-import { useMemo, ReactNode } from 'react';
+import { useMemo } from 'react';
 import { CssBaseline } from '@mui/material';
-import { createTheme, ThemeOptions, ThemeProvider as MUIThemeProvider, StyledEngineProvider } from '@mui/material/styles';
+import { createTheme, ThemeOptions, ThemeProvider as MUIThemeProvider } from '@mui/material/styles';
+import { useSettingsContext } from 'src/contexts/SettingsContext';
 
-import useSettings from 'src/hooks/useSettings';
 import palette from './palette';
 import typography from './typography';
-import breakpoints from './breakpoints';
+import shadows from './shadows';
 import componentsOverride from './overrides';
-import shadows, { customShadows } from './shadows';
+import customShadows from './customShadows';
+import GlobalStyles from './globalStyles';
+
 
 type Props = {
-  children: ReactNode;
+  children: React.ReactNode;
 };
 
 export default function ThemeProvider({ children }: Props) {
-  const { themeMode, themeDirection } = useSettings();
-  const isLight = themeMode === 'light';
-
+  
+  const { themeMode, themeDirection } = useSettingsContext();
   const themeOptions: ThemeOptions = useMemo(
     () => ({
-      palette: isLight ? palette.light : palette.dark,
+      palette: palette(themeMode),
       typography,
-      breakpoints,
       shape: { borderRadius: 8 },
       direction: themeDirection,
-      shadows: isLight ? shadows.light : shadows.dark,
-      customShadows: isLight ? customShadows.light : customShadows.dark,
+      shadows: shadows(themeMode),
+      customShadows: customShadows(themeMode),
     }),
-    [ isLight, themeDirection ]
+    [themeDirection, themeMode]
   );
 
   const theme = createTheme(themeOptions);
+
   theme.components = componentsOverride(theme);
 
   return (
-    <StyledEngineProvider injectFirst>
-      <MUIThemeProvider theme={theme}>
-        <CssBaseline />
-        {children}
-      </MUIThemeProvider>
-    </StyledEngineProvider>
+    <MUIThemeProvider theme={theme}>
+      <CssBaseline />
+      <GlobalStyles />
+      {children}
+    </MUIThemeProvider>
   );
 }

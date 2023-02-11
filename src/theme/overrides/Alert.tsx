@@ -1,35 +1,50 @@
-// @mui
 import { Theme } from '@mui/material/styles';
-// theme
-import { ColorSchema } from '../palette';
+import { AlertProps } from '@mui/material';
 //
 import { ErrorIcon, InfoIcon, SuccessIcon, WarningIcon } from './CustomIcons';
 
 // ----------------------------------------------------------------------
 
+const COLORS = ['info', 'success', 'warning', 'error'] as const;
+
 export default function Alert(theme: Theme) {
   const isLight = theme.palette.mode === 'light';
 
-  const standardStyle = (color: ColorSchema) => ({
-    color: theme.palette[color][isLight ? 'darker' : 'lighter'],
-    backgroundColor: theme.palette[color][isLight ? 'lighter' : 'darker'],
-    '& .MuiAlert-icon': {
-      color: theme.palette[color][isLight ? 'main' : 'light'],
-    },
-  });
+  const rootStyle = (ownerState: AlertProps) => {
+    const standardVariant = ownerState.variant === 'standard';
 
-  const filledStyle = (color: ColorSchema) => ({
-    color: theme.palette[color].contrastText,
-  });
+    const filledVariant = ownerState.variant === 'filled';
 
-  const outlinedStyle = (color: ColorSchema) => ({
-    color: theme.palette[color][isLight ? 'darker' : 'lighter'],
-    border: `solid 1px ${theme.palette[color][isLight ? 'light' : 'dark']}`,
-    backgroundColor: theme.palette[color][isLight ? 'lighter' : 'darker'],
-    '& .MuiAlert-icon': {
-      color: theme.palette[color][isLight ? 'main' : 'light'],
-    },
-  });
+    const outlinedVariant = ownerState.variant === 'outlined';
+
+    const colorStyle = COLORS.map((color) => ({
+      ...(ownerState.severity === color && {
+        // STANDARD
+        ...(standardVariant && {
+          color: theme.palette[color][isLight ? 'darker' : 'lighter'],
+          backgroundColor: theme.palette[color][isLight ? 'lighter' : 'darker'],
+          '& .MuiAlert-icon': {
+            color: theme.palette[color][isLight ? 'main' : 'light'],
+          },
+        }),
+        // FILLED
+        ...(filledVariant && {
+          color: theme.palette[color].contrastText,
+          backgroundColor: theme.palette[color].main,
+        }),
+        // OUTLINED
+        ...(outlinedVariant && {
+          color: theme.palette[color][isLight ? 'dark' : 'light'],
+          border: `solid 1px ${theme.palette[color].main}`,
+          '& .MuiAlert-icon': {
+            color: theme.palette[color].main,
+          },
+        }),
+      }),
+    }));
+
+    return [...colorStyle];
+  };
 
   return {
     MuiAlert: {
@@ -43,31 +58,17 @@ export default function Alert(theme: Theme) {
       },
 
       styleOverrides: {
-        message: {
-          '& .MuiAlertTitle-root': {
-            marginBottom: theme.spacing(0.5),
-          },
+        root: ({ ownerState }: { ownerState: AlertProps }) => rootStyle(ownerState),
+        icon: {
+          opacity: 1,
         },
-        action: {
-          '& button:not(:first-of-type)': {
-            marginLeft: theme.spacing(1),
-          },
+      },
+    },
+    MuiAlertTitle: {
+      styleOverrides: {
+        root: {
+          marginBottom: theme.spacing(0.5),
         },
-
-        standardInfo: standardStyle('info'),
-        standardSuccess: standardStyle('success'),
-        standardWarning: standardStyle('warning'),
-        standardError: standardStyle('error'),
-
-        filledInfo: filledStyle('info'),
-        filledSuccess: filledStyle('success'),
-        filledWarning: filledStyle('warning'),
-        filledError: filledStyle('error'),
-
-        outlinedInfo: outlinedStyle('info'),
-        outlinedSuccess: outlinedStyle('success'),
-        outlinedWarning: outlinedStyle('warning'),
-        outlinedError: outlinedStyle('error'),
       },
     },
   };

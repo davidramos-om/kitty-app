@@ -37,7 +37,6 @@ import Typography from './Typography';
 import Pagination from './Pagination';
 import Breadcrumbs from './Breadcrumbs';
 import ButtonGroup from './ButtonGroup';
-import CssBaseline from './CssBaseline';
 import Autocomplete from './Autocomplete';
 import ToggleButton from './ToggleButton';
 import ControlLabel from './ControlLabel';
@@ -84,7 +83,6 @@ export default function ComponentsOverrides(theme: Theme) {
     Pagination(theme),
     ButtonGroup(theme),
     Breadcrumbs(theme),
-    CssBaseline(theme),
     Autocomplete(theme),
     ControlLabel(theme),
     ToggleButton(theme),

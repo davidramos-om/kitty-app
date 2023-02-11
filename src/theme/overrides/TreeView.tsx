@@ -15,8 +15,12 @@ export default function TreeView(theme: Theme) {
     },
     MuiTreeItem: {
       styleOverrides: {
-        label: { ...theme.typography.body2 },
-        iconContainer: { width: 'auto' },
+        label: {
+          ...theme.typography.body2,
+        },
+        iconContainer: {
+          width: 'auto',
+        },
       },
     },
   };

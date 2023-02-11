@@ -1,21 +1,20 @@
 import { Theme } from '@mui/material/styles';
-import { CheckboxProps } from '@mui/material';
+import { RadioProps } from '@mui/material';
 //
-import { CheckboxIcon, CheckboxCheckedIcon, CheckboxIndeterminateIcon } from './CustomIcons';
+import { RadioIcon, RadioCheckedIcon } from './CustomIcons';
 
 // ----------------------------------------------------------------------
 
-export default function Checkbox(theme: Theme) {
+export default function Radio(theme: Theme) {
   return {
-    MuiCheckbox: {
+    MuiRadio: {
       defaultProps: {
-        icon: <CheckboxIcon />,
-        checkedIcon: <CheckboxCheckedIcon />,
-        indeterminateIcon: <CheckboxIndeterminateIcon />,
+        icon: <RadioIcon />,
+        checkedIcon: <RadioCheckedIcon />,
       },
 
       styleOverrides: {
-        root: ({ ownerState }: { ownerState: CheckboxProps }) => ({
+        root: ({ ownerState }: { ownerState: RadioProps }) => ({
           padding: theme.spacing(1),
           ...(ownerState.size === 'small' && {
             '& svg': { width: 20, height: 20 },

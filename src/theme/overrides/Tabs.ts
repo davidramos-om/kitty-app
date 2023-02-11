@@ -1,58 +1,48 @@
 import { Theme } from '@mui/material/styles';
+import { TabProps } from '@mui/material';
 
 // ----------------------------------------------------------------------
 
 export default function Tabs(theme: Theme) {
   return {
-    MuiTab: {
+    MuiTabs: {
+      defaultProps: {
+        textColor: 'inherit',
+        allowScrollButtonsMobile: true,
+        variant: 'scrollable',
+      },
       styleOverrides: {
-        root: {
-          padding: 0,
-          fontWeight: theme.typography.fontWeightMedium,
-          borderTopLeftRadius: theme.shape.borderRadius,
-          borderTopRightRadius: theme.shape.borderRadius,
-          '&.Mui-selected': {
-            color: theme.palette.text.primary
-          },
-          '&:not(:last-of-type)': {
-            marginRight: theme.spacing(5)
-          },
-          '@media (min-width: 600px)': {
-            minWidth: 48
-          }
-        },
-        labelIcon: {
-          minHeight: 48,
-          flexDirection: 'row',
-          '& > *:first-of-type': {
-            marginBottom: 0,
-            marginRight: theme.spacing(1)
-          }
-        },
-        wrapper: {
-          flexDirection: 'row',
-          whiteSpace: 'nowrap'
-        },
-        textColorInherit: {
-          opacity: 1,
-          color: theme.palette.text.secondary
-        }
-      }
-    },
-    MuiTabPanel: {
-      styleOverrides: {
-        root: {
-          padding: 0
-        }
-      }
-    },
-    MuiTabScrollButton: {
-      styleOverrides: {
-        root: {
+        scrollButtons: {
           width: 48,
-          borderRadius: '50%'
-        }
-      }
-    }
+          borderRadius: '50%',
+        },
+      },
+    },
+    MuiTab: {
+      defaultProps: {
+        disableRipple: true,
+        iconPosition: 'start',
+      },
+      styleOverrides: {
+        root: ({ ownerState }: { ownerState: TabProps }) => ({
+          padding: 0,
+          opacity: 1,
+          minWidth: 48,
+          fontWeight: theme.typography.fontWeightMedium,
+          '&:not(:last-of-type)': {
+            marginRight: theme.spacing(3),
+            [theme.breakpoints.up('sm')]: {
+              marginRight: theme.spacing(5),
+            },
+          },
+          '&:not(.Mui-selected)': {
+            color: theme.palette.text.secondary,
+          },
+          ...((ownerState.iconPosition === 'start' || ownerState.iconPosition === 'end') && {
+            minHeight: 48,
+          }),
+        }),
+      },
+    },
   };
 }

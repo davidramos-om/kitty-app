@@ -4,6 +4,13 @@ import { Theme } from '@mui/material/styles';
 
 export default function Table(theme: Theme) {
   return {
+    MuiTableContainer: {
+      styleOverrides: {
+        root: {
+          position: 'relative',
+        },
+      },
+    },
     MuiTableRow: {
       styleOverrides: {
         root: {
@@ -24,34 +31,37 @@ export default function Table(theme: Theme) {
         head: {
           color: theme.palette.text.secondary,
           backgroundColor: theme.palette.background.neutral,
-          '&:first-of-type': {
-            paddingLeft: theme.spacing(3),
-            borderTopLeftRadius: theme.shape.borderRadius,
-            borderBottomLeftRadius: theme.shape.borderRadius,
-            boxShadow: `inset 8px 0 0 ${theme.palette.background.paper}`,
-          },
-          '&:last-of-type': {
-            paddingRight: theme.spacing(3),
-            borderTopRightRadius: theme.shape.borderRadius,
-            borderBottomRightRadius: theme.shape.borderRadius,
-            boxShadow: `inset -8px 0 0 ${theme.palette.background.paper}`,
-          },
         },
         stickyHeader: {
           backgroundColor: theme.palette.background.paper,
           backgroundImage: `linear-gradient(to bottom, ${theme.palette.background.neutral} 0%, ${theme.palette.background.neutral} 100%)`,
         },
-        body: {
-          '&:first-of-type': {
-            paddingLeft: theme.spacing(3),
-          },
-          '&:last-of-type': {
-            paddingRight: theme.spacing(3),
-          },
+        paddingCheckbox: {
+          paddingLeft: theme.spacing(1),
         },
       },
     },
     MuiTablePagination: {
+      defaultProps: {
+        backIconButtonProps: {
+          size: 'small',
+        },
+        nextIconButtonProps: {
+          size: 'small',
+        },
+        SelectProps: {
+          MenuProps: {
+            MenuListProps: {
+              sx: {
+                '& .MuiMenuItem-root': {
+                  ...theme.typography.body2,
+                },
+              },
+            },
+          },
+        },
+      },
+
       styleOverrides: {
         root: {
           borderTop: `solid 1px ${theme.palette.divider}`,
@@ -59,15 +69,13 @@ export default function Table(theme: Theme) {
         toolbar: {
           height: 64,
         },
+        actions: {
+          marginRight: theme.spacing(1),
+        },
         select: {
           '&:focus': {
             borderRadius: theme.shape.borderRadius,
           },
-        },
-        selectIcon: {
-          width: 20,
-          height: 20,
-          marginTop: -4,
         },
       },
     },

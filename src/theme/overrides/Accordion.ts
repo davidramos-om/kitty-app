@@ -7,15 +7,17 @@ export default function Accordion(theme: Theme) {
     MuiAccordion: {
       styleOverrides: {
         root: {
+          backgroundColor: 'transparent',
           '&.Mui-expanded': {
             boxShadow: theme.customShadows.z8,
-            borderRadius: theme.shape.borderRadius
+            borderRadius: theme.shape.borderRadius,
+            backgroundColor: theme.palette.background.paper,
           },
           '&.Mui-disabled': {
-            backgroundColor: 'transparent'
-          }
-        }
-      }
+            backgroundColor: 'transparent',
+          },
+        },
+      },
     },
     MuiAccordionSummary: {
       styleOverrides: {
@@ -26,14 +28,14 @@ export default function Accordion(theme: Theme) {
             opacity: 1,
             color: theme.palette.action.disabled,
             '& .MuiTypography-root': {
-              color: 'inherit'
-            }
-          }
+              color: 'inherit',
+            },
+          },
         },
         expandIconWrapper: {
-          color: 'inherit'
-        }
-      }
-    }
+          color: 'inherit',
+        },
+      },
+    },
   };
 }

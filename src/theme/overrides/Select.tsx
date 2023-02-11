@@ -1,6 +1,5 @@
 import { Theme } from '@mui/material/styles';
 //
-//
 import { InputSelectIcon } from './CustomIcons';
 
 // ----------------------------------------------------------------------

@@ -1,4 +1,5 @@
-import { alpha, Theme } from '@mui/material';
+import { alpha, Theme } from '@mui/material/styles';
+import { DrawerProps } from '@mui/material';
 
 // ----------------------------------------------------------------------
 
@@ -8,23 +9,17 @@ export default function Drawer(theme: Theme) {
   return {
     MuiDrawer: {
       styleOverrides: {
-        modal: {
-          '&[role="presentation"]': {
-            '& .MuiDrawer-paperAnchorLeft': {
-              boxShadow: `8px 24px 24px 12px ${alpha(
-                theme.palette.grey[900],
-                isLight ? 0.16 : 0.48
-              )}`
+        root: ({ ownerState }: { ownerState: DrawerProps }) => ({
+          ...(ownerState.variant === 'temporary' && {
+            '& .MuiDrawer-paper': {
+              boxShadow: `-40px 40px 80px -8px ${alpha(
+                isLight ? theme.palette.grey[500] : theme.palette.common.black,
+                0.24
+              )}`,
             },
-            '& .MuiDrawer-paperAnchorRight': {
-              boxShadow: `-8px 24px 24px 12px ${alpha(
-                theme.palette.grey[900],
-                isLight ? 0.16 : 0.48
-              )}`
-            }
-          }
-        }
-      }
-    }
+          }),
+        }),
+      },
+    },
   };
 }
