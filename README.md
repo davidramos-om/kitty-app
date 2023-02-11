@@ -9,13 +9,15 @@
 Have fun and practice using web3 libraries, connect to wallet and blockchains, use trading charts
 
 ## Built With
-1. [React](https://reactjs.org/)
-2. [CoinGecko API](https://www.coingecko.com/en/api)
-3. [CoinMarketCap API](https://coinmarketcap.com/api/)
-4. [Apollo GraphQL](https://www.apollographql.com/docs/react/)
-5. [NestJS Backend](https://nestjs.com/)
-6. [Material UI](https://mui.com/)
-7. [Framer Motion](https://www.framer.com/motion/)
+- [React](https://reactjs.org/)
+- [Next.js](https://nextjs.org/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Apollo GraphQL](https://www.apollographql.com/docs/react/)
+- [NestJS Backend](https://nestjs.com/)
+- [Material UI](https://mui.com/)
+- [CoinGecko API](https://www.coingecko.com/en/api)
+- [CoinMarketCap API](https://coinmarketcap.com/api/)
+- [Framer Motion](https://www.framer.com/motion/)
 
 
 ## Installation
@@ -39,7 +41,6 @@ package.json
 ```
 
 ```bash
-npm install -g gh-pages --save-dev
-npm run build
-npm run deploy
+yarn add gh-pages --dev
+yarn run deploy
 ```
