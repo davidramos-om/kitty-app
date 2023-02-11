@@ -1,6 +1,6 @@
 import numeral from 'numeral';
 
-if (numeral.locales[ 'en' ] === undefined) {
+if (numeral.locales.en === undefined) {
     numeral.register('locale', 'en', {
         delimiters: {
             thousands: ',',
@@ -12,8 +12,17 @@ if (numeral.locales[ 'en' ] === undefined) {
             billion: 'b',
             trillion: 't'
         },
-        ordinal: function (num: number) {
-            return num === 1 ? 'st' : num === 2 ? 'nd' : num === 3 ? 'rd' : 'th';
+        ordinal(num: number) {
+            switch (num) {
+                case 1:
+                    return 'st';
+                case 2:
+                    return 'nd';
+                case 3:
+                    return 'rd';
+                default:
+                    return 'th';
+            }
         },
         currency: {
             symbol: '$.'
