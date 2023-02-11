@@ -1,5 +1,6 @@
 declare module 'react-blockies' {
-    import { type FC } from 'react'
+    import { type FC } from 'react';
+    
     interface BlockiesProps {
         seed: string
         size?: number
