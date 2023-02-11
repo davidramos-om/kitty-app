@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import { useState } from "react";
 import { Avatar, Chip, IconButton, Typography, Box, Grid, Tooltip } from "@mui/material";
 import CloseIcon from '@mui/icons-material/Close';
 import Button from '@mui/material/Button';
@@ -70,7 +70,7 @@ export function CurrencyItem({ coin }: CurrencyItemProps) {
             }
         >
             <ListItemAvatar>
-                <Tooltip title={"Open in CoinMarketCap"}>
+                <Tooltip title="Open in CoinMarketCap">
                     <Avatar alt={symbol} src={icon} onClick={handleOpenLink} sx={{ cursor: 'pointer' }} />
                 </Tooltip>
             </ListItemAvatar>
@@ -78,35 +78,33 @@ export function CurrencyItem({ coin }: CurrencyItemProps) {
                 disableTypography
                 primary={symbol}
                 secondary={
-                    <Fragment>
-                        <Grid container spacing={1} justifyContent="space-between" alignItems="center">
-                            <Grid item xs={5}>
-                                <Typography
-                                    sx={{ display: 'inline' }}
-                                    component="span"
-                                    variant="body2"
-                                    color="text.primary"
-                                >
-                                    {name}
-                                </Typography>
-                            </Grid>
-                            <Grid item xs={3}>
-                                <Typography variant="body2" color="text.secondary" >
-                                    {fCurrency(usd_price || 0)}
-                                </Typography>
-                            </Grid>
-                            <Grid item xs={3}>
-                                <Typography variant="body2" color="text.secondary" >
-                                    {fCurrencyCap(market_cap_usd || 0, true)}
-                                </Typography>
-                            </Grid>
-                            <Grid item xs={1}>
-                                <Typography variant="body2" color="text.secondary">
-                                    {rank}
-                                </Typography>
-                            </Grid>
+                    <Grid container spacing={1} justifyContent="space-between" alignItems="center">
+                        <Grid item xs={5}>
+                            <Typography
+                                sx={{ display: 'inline' }}
+                                component="span"
+                                variant="body2"
+                                color="text.primary"
+                            >
+                                {name}
+                            </Typography>
                         </Grid>
-                    </Fragment>
+                        <Grid item xs={3}>
+                            <Typography variant="body2" color="text.secondary" >
+                                {fCurrency(usd_price || 0)}
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={3}>
+                            <Typography variant="body2" color="text.secondary" >
+                                {fCurrencyCap(market_cap_usd || 0, true)}
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={1}>
+                            <Typography variant="body2" color="text.secondary">
+                                {rank}
+                            </Typography>
+                        </Grid>
+                    </Grid>
                 }
             />
         </ListItem>
@@ -131,11 +129,11 @@ export function CurrencyList({ coins = [] }: CurrencyListProps) {
 export default function CoinModalSelector({ value, placeholder = 'Select a token' }: Props) {
 
 
-    const [ coins, setCoins ] = React.useState<Coin[]>([]);
-    const [ open, setOpen ] = React.useState(false);
-    const [ , setSelectedCoin ] = React.useState(null);
+    const [ coins, setCoins ] = useState<Coin[]>([]);
+    const [ open, setOpen ] = useState(false);
+    const [ , setSelectedCoin ] = useState(null);
 
-    const { data } = useQuery(GET_COINS, {
+    useQuery(GET_COINS, {
         fetchPolicy: 'cache-first',
         onCompleted: (data) => {
             console.log(data);
@@ -170,8 +168,6 @@ export default function CoinModalSelector({ value, placeholder = 'Select a token
         },
     });
 
-    console.info("data", data);
-
     const handleClick = () => {
 
     };
@@ -195,7 +191,7 @@ export default function CoinModalSelector({ value, placeholder = 'Select a token
     }
 
     return (
-        <Fragment>
+        <>
             <Chip
                 variant="filled"
                 sx={{ m: '0.2rem' }}
@@ -262,7 +258,7 @@ export default function CoinModalSelector({ value, placeholder = 'Select a token
                     <Button onClick={handleClose}>Manage</Button>
                 </DialogActions>
             </Dialog>
-        </Fragment>
+        </>
     );
 
     // return (

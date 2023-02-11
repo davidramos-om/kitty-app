@@ -1,4 +1,4 @@
-import { createContext, HTMLAttributes, ReactChild, useState, forwardRef, useContext, useRef, useEffect, Fragment } from 'react';
+import * as React from 'react';
 import TextField from '@mui/material/TextField';
 import Autocomplete, { autocompleteClasses } from '@mui/material/Autocomplete';
 import useMediaQuery from '@mui/material/useMediaQuery';
@@ -7,6 +7,7 @@ import Popper from '@mui/material/Popper';
 import { useTheme, styled } from '@mui/material/styles';
 import { VariableSizeList, ListChildComponentProps } from 'react-window';
 import Typography from '@mui/material/Typography';
+import { sentenceCase } from "change-case";
 
 const LISTBOX_PADDING = 8;
 
@@ -18,7 +19,8 @@ function renderRow(props: ListChildComponentProps) {
         top: (style.top as number) + LISTBOX_PADDING,
     };
 
-    if (dataSet.hasOwnProperty('group')) {
+    const hasGroup = Object.prototype.hasOwnProperty.call(dataSet, "group");
+    if (hasGroup) {
         return (
             <ListSubheader key={dataSet.key} component="div" style={inlineStyle}>
                 {dataSet.group}
@@ -28,21 +30,23 @@ function renderRow(props: ListChildComponentProps) {
 
     return (
         <Typography component="li" {...dataSet[ 0 ]} noWrap style={inlineStyle}>
-            {dataSet[ 1 ]}
+            {`${sentenceCase(dataSet[ 1 ])}`}
         </Typography>
     );
 }
 
-const OuterElementContext = createContext({});
+const OuterElementContext = React.createContext({});
 
-const OuterElementType = forwardRef<HTMLDivElement>((props, ref) => {
-    const outerProps = useContext(OuterElementContext);
+const OuterElementType = React.forwardRef<HTMLDivElement>((props, ref) => {
+    const outerProps = React.useContext(OuterElementContext);
     return <div ref={ref} {...props} {...outerProps} />;
 });
 
+OuterElementType.displayName = 'OuterElementType';
+
 function useResetCache(data: any) {
-    const ref = useRef<VariableSizeList>(null);
-    useEffect(() => {
+    const ref = React.useRef<VariableSizeList>(null);
+    React.useEffect(() => {
         if (ref.current != null) {
             ref.current.resetAfterIndex(0, true);
         }
@@ -51,29 +55,27 @@ function useResetCache(data: any) {
 }
 
 // Adapter for react-window
-const ListboxComponent = forwardRef<
-    HTMLDivElement,
-    HTMLAttributes<HTMLElement>
->(function ListboxComponent(props, ref) {
+const ListboxComponent = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLElement>>((props, ref) => {
 
     const { children, ...other } = props;
-    const itemData: ReactChild[] = [];
-    (children as ReactChild[]).forEach(
-        (item: ReactChild & { children?: ReactChild[] }) => {
+    const itemData: React.ReactChild[] = [];
+    (children as React.ReactChild[]).forEach(
+        (item: React.ReactChild & { children?: React.ReactChild[] }) => {
             itemData.push(item);
             itemData.push(...(item.children || []));
         },
     );
 
     const theme = useTheme();
-    const smUp = useMediaQuery(theme.breakpoints.up('sm'), {
-        noSsr: true,
-    });
+    const smUp = useMediaQuery(theme.breakpoints.up('sm'), { noSsr: true });
     const itemCount = itemData.length;
     const itemSize = smUp ? 36 : 48;
 
-    const getChildSize = (child: ReactChild) => {
-        if (child.hasOwnProperty('group')) {
+    const getChildSize = (child: React.ReactChild) => {
+
+        // const hasGroup = child.hasOwnProperty('group');
+        const hasGroup = Object.prototype.hasOwnProperty.call(child, "group");
+        if (hasGroup) {
             return 48;
         }
 
@@ -110,7 +112,6 @@ const ListboxComponent = forwardRef<
     );
 });
 
-
 const StyledPopper = styled(Popper)({
     [ `& .${autocompleteClasses.listbox}` ]: {
         boxSizing: 'border-box',
@@ -121,102 +122,39 @@ const StyledPopper = styled(Popper)({
     },
 });
 
-
-type Props = {
+type VirtualizeProps = {
+    label: string;
     options: string[];
     value: string;
-    label: string;
-    disabled?: boolean;
-    error?: boolean;
-    size?: 'small' | 'medium';
-    variant?: 'standard' | 'outlined' | 'filled';
-    helperText?: string | false | undefined | string[];
-    showSearchMore?: boolean;
-    fullWidth?: boolean;
-    getOptionLabel?: (value: any) => any,
-    onChange: (value: string) => any;
-    onSearchMore?: (keyword: string) => any;
+    onChange: (value: string) => void;
 }
 
-export default function VirtualizedSingleAutoComplete(
-    {
-        value = '', disabled = false, error = false, label, variant = 'outlined',
-        helperText, options, size = 'medium', showSearchMore = false, fullWidth = true,
-        onChange, onSearchMore, getOptionLabel
-    }: Props) {
+export default function Virtualize(cProps: VirtualizeProps) {
 
-    const [ open, setOpen ] = useState(false);
-    const textRef = useRef<HTMLInputElement>();
-    const autoCompleteRef = useRef<HTMLInputElement>();
-
-    const handleSearchMore = () => {
-        if (onSearchMore)
-            onSearchMore(textRef?.current?.value || '');
-    }
+    const { label, options, value, onChange } = cProps;
 
     return (
         <Autocomplete
-            id="virtualize-single-auto-completed"
-            ref={autoCompleteRef}
-            multiple={false}
-            disablePortal={false}
-            autoHighlight={true}
-            fullWidth={fullWidth}
+            id="virtualize-demo"
             disableListWrap
-            disabled={disabled}
-            clearOnBlur
-            clearOnEscape
-            freeSolo={false}
-            openOnFocus={true}
-            noOptionsText={
-                <Typography>
-                    No results
-                    {showSearchMore && (
-                        <Fragment>
-                            <br />
-                            <b onClick={handleSearchMore} style={{ cursor: 'pointer' }} >Search more</b>
-                        </Fragment>
-                    )}
-                </Typography>}
-            size={size}
+            autoHighlight
+            fullWidth
+            multiple={false}
+            sx={{ width: '100%' }}
             PopperComponent={StyledPopper}
             ListboxComponent={ListboxComponent}
+            defaultValue={value}
             options={options}
-            value={value}
-            renderOption={(props, option) => [ props, option ]}
-            renderGroup={(params) => params}
-            style={{ width: "100%" }}
-            onOpen={() => setOpen(true)}
-            onClose={() => setOpen(false)}
+            groupBy={(option) => option[ 0 ].toUpperCase()}
+            renderInput={(params) => <TextField {...params} label={label} />}
+            renderOption={(props, option, state) =>
+                [ props, option, state.index ] as React.ReactNode
+            }
             onChange={(event: any, opt: any) => {
-                if (onChange) {
-                    onChange(opt);
-                }
-                setOpen(false);
+                onChange(opt);
             }}
-            getOptionLabel={(option) => {
-                return open ? option : (getOptionLabel ? getOptionLabel(option) : option)
-            }}
-            renderInput={(params) => {
-                return (
-                    <TextField
-                        {...params}
-                        key={params.id}
-                        inputProps={{
-                            ...params.inputProps,
-                            autoComplete: 'new-password', // trip : disable autocomplete and autofill
-                        }}
-                        fullWidth={fullWidth}
-                        autoComplete="off"
-                        error={error}
-                        label={label}
-                        helperText={helperText}
-                        InputLabelProps={{ shrink: true }}
-                        variant={variant}
-                        inputRef={textRef}
-                    />
-                )
-            }}
+            // TODO: Post React 18 update - validate this conversion, look like a hidden bug
+            renderGroup={(params) => params as unknown as React.ReactNode}
         />
     );
 }
