@@ -1,8 +1,12 @@
 {
-  "name": "@minimal/material-kit-nextjs",
-  "author": "Minimals UI",
-  "version": "4.2.0",
-  "description": "Simple Next.Js & Typescript",
+  "name": "kitty-app",
+  "author": {
+    "name": "David Ramos",
+    "email": "davidramos015@gmail.com",
+    "url": "https://www.davidramos-om.com/"
+  },
+  "version": "0.0.1",
+  "description": "Web3 components",
   "private": true,
   "license": "MIT",
   "scripts": {
