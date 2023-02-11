@@ -3,13 +3,12 @@ import { Box } from '@mui/material';
 
 import useResponsive from 'src/hooks/useResponsive';
 import { useSettingsContext } from 'src/contexts/SettingsContext';
+import CryptoMarquee from "src/components/CryptoMarqee";
 
 import Main from './Main';
 import Header from './header';
 import NavMini from './nav/NavMini';
 import NavVertical from './nav/NavVertical';
-import CryptoMarquee from "src/components/CryptoMarqee";
-
 
 type Props = {
     children?: React.ReactNode;
