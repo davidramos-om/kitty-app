@@ -1,5 +1,4 @@
-
-import { VariantsType } from 'src/components/animation/type';
+import { VariantsType } from '../types';
 import { varTranEnter, varTranExit } from './transition';
 
 export const varFade = (props?: VariantsType) => {
