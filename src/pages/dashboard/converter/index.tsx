@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { Card } from '@mui/material';
 
-import Page from 'src/components/Page';
+import Page, { DashboardLayout } from 'src/components/Page';
 import VirtualizedSingleAutoComplete from "src/components/selectors/VirtualizedDataSingleValue";
 import CoinConverter from "./ConverterWidget";
+
+CoinConverterPage.getLayout = (page: React.ReactElement) => <DashboardLayout>{page}</DashboardLayout>;
 
 export default function CoinConverterPage() {
 
@@ -14,9 +16,14 @@ export default function CoinConverterPage() {
 
         const getCoins = async () => {
 
-            const coinList = await getCoinList();
-            const options = coinList.map((coin: any) => coin.id);
-            setCoins(options);
+            try {
+                const coinList = await getCoinList();
+                const options = coinList.map((coin: any) => coin.id);
+                setCoins(options);
+            }
+            catch (error) {
+                console.error(error);
+            }
         }
 
         getCoins();
@@ -47,7 +54,7 @@ export default function CoinConverterPage() {
                 <br />
                 < CoinConverter
                     coinId={selectedCoin}
-                    toCurrency={"usd"}
+                    toCurrency="usd"
                 />
             </Card>
         </Page>

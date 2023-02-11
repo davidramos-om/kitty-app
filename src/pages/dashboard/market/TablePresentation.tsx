@@ -1,15 +1,17 @@
-import React, { useEffect } from "react";
+'use client';
+
+import { useState, useEffect } from "react";
 import { useTheme } from '@mui/material/styles';
 import { Stack, Box, Typography, Table, TableRow, TableBody, TableCell, TableHead, TableContainer, Avatar, Paper, TableSortLabel, TablePagination, FormControlLabel, Switch } from '@mui/material';
 import { visuallyHidden } from '@mui/utils';
 
-import Label from 'src/components/Label';
-import Scrollbar from 'src/components/Scrollbar';
+import Label from 'src/components/label';
+import Scrollbar from 'src/components/scrollbar';
 import { fCurrency, fNumber } from "src/utils/formatNumber";
 
+import { getComparator, Order, stableSort } from "src/utils/sort";
 import CirculatingSupply from "./CirculatingSupply";
 import ChartSparkLine from "./ChartSparkLine";
-import { getComparator, Order, stableSort } from "src/utils/sort";
 
 type TableColumnProps = {
     cellId: string;
@@ -21,7 +23,7 @@ type TableColumnProps = {
     children: React.ReactNode;
 }
 
-function TableColumn({ cellId, sortDirection, align, orderBy, onRequestSort, children }: TableColumnProps) {
+function TableColumn({ cellId, type, sortDirection, align, orderBy, onRequestSort, children }: TableColumnProps) {
 
     const createSortHandler = (property: string) => (event: React.MouseEvent<unknown>) => {
         onRequestSort?.(event, property);
@@ -30,6 +32,7 @@ function TableColumn({ cellId, sortDirection, align, orderBy, onRequestSort, chi
     return (
         <TableCell
             align={align}
+            itemType={type}
             sortDirection={orderBy === cellId ? sortDirection : false}
         >
             {sortDirection === false ?
@@ -51,18 +54,26 @@ function TableColumn({ cellId, sortDirection, align, orderBy, onRequestSort, chi
     );
 }
 
-export function TablePresentation({ data }: { data: any[]; }) {
+type TablePresentationProps = {
+    data: any[];
+}
+
+export default function TablePresentation({ data }: TablePresentationProps) {
 
     const theme = useTheme();
-    const [ order, setOrder ] = React.useState<Order>('asc');
-    const [ orderBy, setOrderBy ] = React.useState<string>('cmc_rank');
-    const [ page, setPage ] = React.useState(0);
-    const [ rowsPerPage, setRowsPerPage ] = React.useState(5);
-    const [ rows, setRows ] = React.useState(data);
-    const [ dense, setDense ] = React.useState(false);
+    const [ order, setOrder ] = useState<Order>('asc');
+    const [ orderBy, setOrderBy ] = useState<string>('cmc_rank');
+    const [ page, setPage ] = useState(0);
+    const [ rowsPerPage, setRowsPerPage ] = useState(5);
+    const [ rows, setRows ] = useState<any[]>([]);
+    const [ dense, setDense ] = useState(false);
 
     useEffect(() => {
-        setRows(data);
+        if(data?.length > 0)
+            setRows(data);
+        else
+            setRows([]);
+        
     }, [ data ]);
 
     const handleRequestSort = (event: React.MouseEvent<unknown>, property: string,) => {
@@ -86,15 +97,15 @@ export function TablePresentation({ data }: { data: any[]; }) {
     };
 
     const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
-    const renderData = stableSort(rows, getComparator(order, orderBy))
+    const renderData = rows?.length > 0 ?  stableSort(rows, getComparator(order, orderBy))
         .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-
+        : [];
 
     return (
         <div>
             <Scrollbar>
                 <Box sx={{ width: '100%' }} p={2}>
-                    <Stack direction={"row"}>
+                    <Stack direction="row">
                         <FormControlLabel
                             control={<Switch checked={dense} onChange={handleChangeDense} />}
                             label="Dense"
@@ -172,15 +183,15 @@ export function TablePresentation({ data }: { data: any[]; }) {
                                     <TableRow hover key={row.id}>
                                         <TableCell>{fNumber(row.cmc_rank || 0)}</TableCell>
                                         <TableCell>
-                                            <Stack direction={"row"} alignItems={"center"} gap={1}>
+                                            <Stack direction="row" alignItems="center" gap={1}>
                                                 <Avatar
                                                     sizes="small"
                                                     variant="circular"
                                                     sx={{ width: 24, height: 24 }}
                                                     src={row.icon} />
                                                 <Stack
-                                                    direction={"row"}
-                                                    alignItems={"baseline"}
+                                                    direction="row"
+                                                    alignItems="baseline"
                                                     gap={0.5}
                                                 >
                                                     <Typography component="p" fontWeight="bold">
@@ -190,7 +201,7 @@ export function TablePresentation({ data }: { data: any[]; }) {
                                                         component="span"
                                                         fontWeight="bold"
                                                         variant="caption"
-                                                        color={"text.secondary"}
+                                                        color="text.secondary"
                                                     >
                                                         {row.symbol}
                                                     </Typography>
@@ -208,17 +219,17 @@ export function TablePresentation({ data }: { data: any[]; }) {
 
                                         </TableCell>
                                         <TableCell>
-                                            <Stack direction={"row"} alignItems={"center"} gap={1}>
+                                            <Stack direction="row" alignItems="center" gap={1}>
                                                 <Label
                                                     color="error"
-                                                    variant={theme.palette.mode === 'light' ? 'ghost' : 'filled'}
+                                                    variant={theme.palette.mode === 'light' ? 'soft' : 'filled'}
                                                 >
                                                     {fCurrency(row.atl || 0)}
                                                 </Label>
 
                                                 <Label
                                                     color="success"
-                                                    variant={theme.palette.mode === 'light' ? 'ghost' : 'filled'}
+                                                    variant={theme.palette.mode === 'light' ? 'soft' : 'filled'}
                                                 >
                                                     {fCurrency(row.ath || 0)}
                                                 </Label>

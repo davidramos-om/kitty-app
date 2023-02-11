@@ -1,8 +1,9 @@
-import useSettings from "src/hooks/useSettings";
+import { memo } from 'react';
+import { useSettingsContext } from 'src/contexts/SettingsContext';
 
-export default function HeatMap() {
+function CompareChart() {
 
-    const { language } = useSettings();
+    const { language } = useSettingsContext();
 
     return (
         <coingecko-coin-compare-chart-widget
@@ -13,3 +14,5 @@ export default function HeatMap() {
         />
     );
 }
+
+export default memo(CompareChart);

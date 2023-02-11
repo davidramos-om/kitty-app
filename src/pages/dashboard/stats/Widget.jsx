@@ -1,9 +1,18 @@
+import { memo } from 'react';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import PropTypes from 'prop-types';
+
 import { Box, Card, Typography } from '@mui/material';
-import useSettings from "src/hooks/useSettings";
+import { useSettingsContext } from 'src/contexts/SettingsContext';
 
-export default function MarketCapWidget({ coinId, title }) {
+MarketCapWidget.propTypes = {
+    coinId: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired
+}
 
-    const { language } = useSettings();
+function MarketCapWidget({ coinId, title }) {
+
+    const { language } = useSettingsContext();
 
     return (
         <Card
@@ -22,3 +31,6 @@ export default function MarketCapWidget({ coinId, title }) {
         </Card>
     );
 }
+
+
+export default memo(MarketCapWidget);
