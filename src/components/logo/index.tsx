@@ -1,6 +1,7 @@
-import { Link as RouterLink } from 'react-router-dom';
+import NextLink from 'next/link';
 import { Box, BoxProps } from '@mui/material';
-import Image from "./Image";
+
+import Image from "src/components/image";
 
 interface Props extends BoxProps {
   disabledLink?: boolean;
@@ -21,5 +22,5 @@ export default function Logo({ disabledLink = false, sx }: Props) {
     return <>{logo}</>;
   }
 
-  return <RouterLink to="/">{logo}</RouterLink>;
+  return <NextLink href="/">{logo}</NextLink>;
 }
