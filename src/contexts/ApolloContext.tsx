@@ -1,7 +1,7 @@
 import React from 'react';
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 
-import { SITE_SETTINGS } from 'src/config';
+import { SITE_SETTINGS } from 'src/config-global';
 
 const client = new ApolloClient({
     uri: SITE_SETTINGS.ccm_api,
@@ -13,7 +13,7 @@ type Props = {
     children: React.ReactNode;
 }
 
-export default function ApolloContext({ children }: Props) {
+export default function AppApolloProvider({ children }: Props) {
 
     return (
         <ApolloProvider client={client}>
