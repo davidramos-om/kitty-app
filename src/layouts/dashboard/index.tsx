@@ -3,7 +3,8 @@ import { Box } from '@mui/material';
 
 import useResponsive from 'src/hooks/useResponsive';
 import { useSettingsContext } from 'src/contexts/SettingsContext';
-import CryptoMarquee from "src/components/CryptoMarqee";
+import { MarqueeLine } from "src/components/marquee/MarqueeLine";
+// import CryptoMarquee from "src/components/CryptoMarqee";
 
 import Main from './Main';
 import Header from './header';
@@ -52,14 +53,16 @@ export default function DashboardLayout({ children }: Props) {
 
         return (
             <>
+                <MarqueeLine />
                 <Header onOpenNav={handleOpen} />
                 <Box
                     sx={{
                         display: { lg: 'flex' },
-                        minHeight: { lg: 1 },
+                        minHeight: {
+                            lg: 1,
+                        },
                     }}
                 >
-                    <br />
                     {renderNavVertical}
                     <Main>{children}</Main>
                 </Box>
@@ -67,8 +70,5 @@ export default function DashboardLayout({ children }: Props) {
         );
     };
 
-    return <>
-        <CryptoMarquee />
-        {renderContent()}
-    </>;
+    return <>{renderContent()}</>;
 }

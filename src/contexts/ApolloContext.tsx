@@ -1,13 +1,7 @@
 import React from 'react';
-import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
+import { ApolloProvider } from "@apollo/client";
 
-import { SITE_SETTINGS } from 'src/config-global';
-
-const client = new ApolloClient({
-    uri: SITE_SETTINGS.ccm_api,
-    cache: new InMemoryCache()
-});
-
+import gqlClient from 'src/graphql/client';
 
 type Props = {
     children: React.ReactNode;
@@ -16,7 +10,7 @@ type Props = {
 export default function AppApolloProvider({ children }: Props) {
 
     return (
-        <ApolloProvider client={client}>
+        <ApolloProvider client={gqlClient}>
             {children}
         </ApolloProvider>
     );

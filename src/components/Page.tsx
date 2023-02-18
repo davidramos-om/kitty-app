@@ -21,7 +21,7 @@ const Page = forwardRef<HTMLDivElement, Props>(({ children, title = '', meta, co
   return (
     <>
       <Head>
-        <title>{`${title} | Kitty App v.23.02.11.0245`}</title>
+        <title>{`${title} | Kitty App v.23.02.18.0030`}</title>
         {meta}
       </Head>
 
@@ -29,14 +29,11 @@ const Page = forwardRef<HTMLDivElement, Props>(({ children, title = '', meta, co
         {...containerSx}
         sx={{
           ...containerSx?.sx,
-          paddingTop: 6,
         }}
         maxWidth={themeStretch ? false : 'xl'}
       >
         <Box
           ref={ref}
-          paddingLeft={6}
-          paddingRight={6}
           {...other}
         >
           {children}

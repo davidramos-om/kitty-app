@@ -89,7 +89,7 @@ export default function Header({ onOpenNav }: Props) {
                 <Stack direction="row">
                     <Box paddingRight={2} sx={{ ml: 2, minWidth: 0, }}>
                         <Typography variant="subtitle2" noWrap align="right" sx={{ color: 'text.primary' }}>
-                            Crypto Billionaire
+                            CryptoNaire
                         </Typography>
                         <Typography variant="body2" noWrap align="right" sx={{ color: 'text.secondary' }} >
                             Admin
@@ -140,7 +140,7 @@ export default function Header({ onOpenNav }: Props) {
                 sx={{
                     height: 1,
                     px: { lg: 5 },
-                    py: HEADER.H_TOPBAR,
+                    py: 6,
                 }}
             >
                 {renderContent}

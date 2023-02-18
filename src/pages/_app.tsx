@@ -16,6 +16,7 @@ import { SettingsProvider } from 'src/contexts/SettingsContext';
 import createEmotionCache from 'src/utils/createEmotionCache';
 import ThemeProvider from 'src/theme';
 import ThemeLocalization from 'src/locales';
+import AppApolloProvider from "src/contexts/ApolloContext";
 
 
 const clientSideEmotionCache = createEmotionCache();
@@ -40,6 +41,7 @@ export default function MyApp(props: MyAppProps) {
         <meta name="viewport" content="initial-scale=1, width=device-width" />
       </Head>
 
+      <AppApolloProvider>
       <SettingsProvider>
         <MotionLazyContainer>
           <ThemeProvider>
@@ -53,7 +55,8 @@ export default function MyApp(props: MyAppProps) {
             </ThemeSettings>
           </ThemeProvider>
         </MotionLazyContainer>
-      </SettingsProvider>
+        </SettingsProvider>
+      </AppApolloProvider>
     </CacheProvider>
   );
 }

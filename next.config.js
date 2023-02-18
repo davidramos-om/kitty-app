@@ -3,6 +3,6 @@ module.exports = {
   trailingSlash: true,
   env: {
     // HOST
-    HOST_API_KEY: 'https://api-dev-minimal-v4.vercel.app',
+    REACT_APP_CCM_API: 'http://localhost:5001/graphql/',
   },
 };

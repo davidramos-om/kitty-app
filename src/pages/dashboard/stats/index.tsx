@@ -16,7 +16,6 @@ export default function StatsPage() {
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => setValue(newValue);
 
-
   return (
     <Page title="Crypto Stats">
       <Stack alignContent="center" alignItems="center" >

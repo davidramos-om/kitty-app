@@ -17,8 +17,8 @@ type Props = {
 };
 
 export default function NavVertical({ openNav, onCloseNav }: Props) {
-  const { pathname } = useRouter();
 
+  const { pathname } = useRouter();
   const isDesktop = useResponsive('up', 'lg');
 
   useEffect(() => {
@@ -61,7 +61,6 @@ export default function NavVertical({ openNav, onCloseNav }: Props) {
       sx={{
         flexShrink: { lg: 0 },
         width: { lg: NAV.W_DASHBOARD },
-        py: 10,
       }}
     >
       <NavToggleButton />
@@ -76,7 +75,6 @@ export default function NavVertical({ openNav, onCloseNav }: Props) {
               width: NAV.W_DASHBOARD,
               bgcolor: 'transparent',
               borderRightStyle: 'dashed',
-              pt: NAV.H_DASHBOARD,
             },
           }}
         >
@@ -91,8 +89,7 @@ export default function NavVertical({ openNav, onCloseNav }: Props) {
           }}
           PaperProps={{
             sx: {
-              width: NAV.W_DASHBOARD,
-              pt: NAV.H_DASHBOARD,
+              width: NAV.W_DASHBOARD
             },
           }}
         >

@@ -1,13 +1,11 @@
 import { PATH_DASHBOARD } from './routes/paths';
 
-// ROOT PATH AFTER LOGIN SUCCESSFUL
 export const PATH_AFTER_LOGIN = PATH_DASHBOARD.EXCHANGE;
 
 export const HEADER = {
   H_MOBILE: 64,
   H_MAIN_DESKTOP: 88,
   H_DASHBOARD_DESKTOP: 92,
-  H_TOPBAR: 10,
   H_DASHBOARD_DESKTOP_OFFSET: 92 - 32,
 };
 
@@ -30,6 +28,5 @@ export const ICON = {
   NAV_ITEM_MINI: 22,
 };
 
-export const SITE_SETTINGS = {
-  ccm_api: String(process.env.REACT_APP_CCM_API || ''),
-}
+
+export const CCM_API = String(process.env.REACT_APP_CCM_API || '');

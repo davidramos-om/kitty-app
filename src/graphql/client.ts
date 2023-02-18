@@ -1,10 +1,10 @@
 
 import { ApolloClient, InMemoryCache, createHttpLink, from } from "@apollo/client";
 import { onError } from "@apollo/client/link/error";
-import { SITE_SETTINGS } from "src/config-global";
+import { CCM_API } from "src/config-global";
 
 const httpLink = createHttpLink({
-    uri: SITE_SETTINGS.ccm_api
+    uri: CCM_API
 });
 
 const errorLink = onError(({ graphQLErrors, networkError }) => {
