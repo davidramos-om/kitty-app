@@ -1,8 +1,3 @@
-# Inspired by : 
-1. [Shiba Swap](https://shibaswap.com/#/)
-2. [Pancake Swap](https://pancakeswap.finance/swap)
-3. [Venus Protocol](https://app.venus.io/dashboard)
-
 # Under development
 
 ## Purpose
@@ -23,24 +18,5 @@ Have fun and practice using web3 libraries, connect to wallet and blockchains, u
 ## Installation
 
 ```bash
-$ npm install
-```
-
-## Publishing
-
-package.json
-
-```json
-"homepage": ".",
-{
-  "scripts": {
-    "predeploy": "rm -rf build && rm -rf node_modules/.cache/gh-pages && npm run build",
-        "deploy": "gh-pages -d build"
-  }
-}
-```
-
-```bash
-yarn add gh-pages --dev
-yarn run deploy
+$ yarn install
 ```
