@@ -5,8 +5,9 @@ import { Stack, useTheme } from "@mui/material";
 import { m } from "framer-motion";
 
 import { marqueeVariants } from "src/components/animate/variants/marquee";
-import { GET_MARKET_PRICE_GQL } from 'src/graphql/queries';
-import gqlClient from 'src/graphql/client';
+// import { GET_MARKET_PRICE_GQL } from 'src/graphql/queries';
+// import gqlClient from 'src/graphql/client';
+import { marketPrice } from 'src/services/market-fetch';
 
 import { TokenData } from "./TokenData";
 import { MarqueeBox } from "./MarqueeBox";
@@ -42,18 +43,22 @@ export function MarqueeLine() {
 
             try {
 
-                const { data } = await gqlClient.query({
-                    query: GET_MARKET_PRICE_GQL,
-                    errorPolicy: 'none',
-                    variables: {
-                        ids: tokenIds,
-                    },
-                });
+                // const { data } = await gqlClient.query({
+                //     query: GET_MARKET_PRICE_GQL,
+                //     errorPolicy: 'none',
+                //     variables: {
+                //         ids: tokenIds,
+                //     },
+                // });
+
+                const data = await marketPrice(tokenIds);
+                console.log(`🐛  -> 🔥 :  cb1 🔥 :  data`, data);
+
 
                 if (!active)
                     return;
 
-                setTokens(data.result.map(MapToken));
+                setTokens(data.map(MapToken));
             }
             catch (error) {
                 console.log('ERROR DURING GQL REQUEST', error);
